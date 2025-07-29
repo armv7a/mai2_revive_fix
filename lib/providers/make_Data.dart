@@ -1,5 +1,5 @@
 import '../common/response.dart';
-import 'mai2_getdata.dart';
+import 'mai2_GetData.dart';
 
 class Mai2MakeData {
   static Future<CommonResponse<Map<String, dynamic>>> MakeData({

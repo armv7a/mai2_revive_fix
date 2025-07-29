@@ -1,0 +1,42 @@
+name: Build CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+
+jobs:
+  build:
+    name: Build and Upload APKs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build-type: [release, debug]
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.32.7
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK (${{ matrix.build-type }})
+        run: |
+          if [ "${{ matrix.build-type }}" = "release" ]; then
+            flutter build apk --no-shrink
+          else
+            flutter build apk --debug
+          fi
+
+      - name: Upload APK (${{ matrix.build-type }})
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.build-type }}
+          path: build/app/outputs/flutter-apk/app-${{ matrix.build-type }}.apk

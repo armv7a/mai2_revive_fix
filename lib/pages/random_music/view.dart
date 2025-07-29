@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../../providers/lxns_GetSongJacket.dart';
-import '../../providers/lxns_Updatamusiclist.dart';
+import '../../providers/lxns_UpdataMusicList.dart';
 
 class RandomPage extends StatefulWidget {
   @override
